@@ -1,0 +1,278 @@
+﻿@model IEnumerable<WorkOrder>
+@{
+    ViewData["Title"] = "Home Page";
+}
+@{
+
+    List<ServiceRequest> Request = new List<ServiceRequest>();
+    List<Person> RequesterName = new List<Person>();
+    List<Status> status = new List<Status>();
+    List<WorkOrder> workOrders = new List<WorkOrder>();
+
+    List<string> TicketName = new List<string>();
+    List<string> Details = new List<string>();
+    List<string> statusHash = new List<string>();
+    List<string> reqIdHash = new List<string>();
+    List<string> dueDate = new List<string>();
+
+    @foreach (var sr in ViewData["SR"] as IEnumerable<ServiceRequest>)
+    {
+        Request.Add(sr);
+    }
+  
+    @foreach (var s in ViewData["status"] as IEnumerable<Status>)
+    {
+        status.Add(s);
+    }
+    @foreach (var p in ViewData["person"] as IEnumerable<Person>)
+    {
+        RequesterName.Add(p);
+    }
+
+    @foreach (WorkOrder ticket in Model)
+    {
+        workOrders.Add(ticket);
+        TicketName.Add(ticket.Ticket);
+        Details.Add(ticket.Summary);
+        statusHash.Add(ticket.StatusId.ToString());
+        reqIdHash.Add(ticket.RequesterId.ToString());
+        dueDate.Add(ticket.DueDate.ToString());
+
+    }
+    @for (int i = 0; i < Request.Count; ++i)
+    {
+        TicketName.Add(Request[i].Ticket);
+        statusHash.Add(Request[i].StatusId.ToString());
+        reqIdHash.Add(Request[i].RequesterId.ToString());
+        Details.Add(Request[i].Summary);
+        dueDate.Add(Request[i].DueDate.ToString());
+    }
+
+
+}
+
+
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.25/datatables.min.js"></script>
+    <script src="https://kit.fontawesome.com/5b2bd23d5f.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/bootstrap.cerulean.min.css" />
+    <script>
+        jQuery(function ($) {
+            $('table.d').DataTable();
+        })(jQuery);
+    </script>
+
+
+</head>
+
+<div style="background-color: white;">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 style="text-align:center">Alloy Tickets</h2>
+            <form id="form1" runaat="server">
+                <table id="table1" class="d" style="border-collapse: separate; border-spacing: 1em; background-color: white;">
+                    <thead>
+                        <tr>
+                            <th style="max-width: 80px;">Ticket</th>
+                            <th style="max-width: 80px;">Description</th>
+                            <th style="max-width: 110px;">Requester</th>
+                            <th style="max-width: 80px;">Due Date</th>
+                            <th style="max-width: 80px;">Status</th>
+                            <th style="max-width: 80px;">Alloy 8 Link</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < TicketName.Count; ++i)
+                        {
+                            <tr>
+                                <td>@TicketName[i]</td>
+                                <td style="max-width: 50px;">
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter-@(TicketName[i])">
+                                        Description
+                                    </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal" id="exampleModalCenter-@(TicketName[i])" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            " tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="background-color: none;">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle-@(TicketName[i])">@TicketName[i]</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @Details[i]
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    @for (int p = 0; p < RequesterName.Count; ++p)
+                                    {
+                                        if (RequesterName[p].Id.ToString().Equals(reqIdHash[i]))
+                                        {
+                                            @RequesterName[p].FirstName; <text> </text> @RequesterName[p].LastName;
+                                        }
+                                    }
+                                </td>
+                                <td>
+                                    @dueDate[i]
+                                </td>
+                                <td>
+                                    @for (int l = 0; l < status.Count; ++l)
+                                    {
+                                        if (status[l].Id.ToString().Equals(statusHash[i]))
+                                        {
+                                            @status[l].Status1
+                                        }
+                                    }
+
+                                </td>
+
+
+                                <td>
+
+                                    @{
+                                        foreach (WorkOrder work in Model)
+                                        {
+                                            if (work.Ticket.Equals(TicketName[i]))
+                                            {
+                                                <a href="http://srvalloy.cityofsalem.net/wp/WorkOrder.aspx?ID=@(work.Id.ToString())&tab=1" class="btn btn-secondary" target="_blank" role="button">Link Button</a>
+                                            }
+                                        }
+                                    }
+                                    @{
+                                        for (int a = 0; a < Request.Count; ++a)
+                                            if (Request[a].Ticket.Equals(TicketName[i]))
+                                            {
+                                                <a href="http://srvalloy.cityofsalem.net/wp/ServiceRequest.aspx?ID=@(Request[a].Id)&tab=1" class="btn btn-secondary" target="_blank" role="button">Link Button</a>
+                                            }
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </form>
+        </div>
+
+        <div class="col-md-6">
+            <div style="background-color: white;">
+                <h2 style="text-align:center">TDX Tasks</h2>
+                <form id="form1" runaat="server">
+                    <table id="table2" class="d" style="border-collapse: separate; border-spacing: 1em; background-color: white;">
+                        <thead>
+                            <tr>
+                                <th style="max-width: 80px;">Ticket</th>
+                                <th style="max-width: 80px;">Description</th>
+                                <th style="max-width: 110px;">Requester</th>
+                                <th style="max-width: 80px;">Due Date</th>
+                                <th style="max-width: 80px;">Status</th>
+                                <th style="max-width: 80px;">Alloy 8 Link</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < TicketName.Count; ++i)
+                            {
+                                <tr>
+                                    <td>@TicketName[i]</td>
+                                    <td style="max-width: 50px;">
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter-@(TicketName[i])">
+                                            Description
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal" id="exampleModalCenter-@(TicketName[i])" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                " tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" style="background-color: none;">
+                                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle-@(TicketName[i])">@TicketName[i]</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            @Details[i]
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @for (int p = 0; p < RequesterName.Count; ++p)
+                                        {
+                                            if (RequesterName[p].Id.ToString().Equals(reqIdHash[i]))
+                                            {
+                                                @RequesterName[p].FirstName; <text> </text> @RequesterName[p].LastName;
+                                            }
+                                        }
+                                    </td>
+                                    <td>
+                                        @dueDate[i]
+                                    </td>
+                                    <td>
+                                        @for (int l = 0; l < status.Count; ++l)
+                                        {
+                                            if (status[l].Id.ToString().Equals(statusHash[i]))
+                                            {
+                                                @status[l].Status1
+                                            }
+                                        }
+
+                                    </td>
+
+
+                                    <td>
+
+                                        @{
+                                            foreach (WorkOrder work in Model)
+                                            {
+                                                if (work.Ticket.Equals(TicketName[i]))
+                                                {
+                                                    <a href="http://srvalloy.cityofsalem.net/wp/WorkOrder.aspx?ID=@(work.Id.ToString())&tab=1" class="btn btn-secondary" target="_blank" role="button">Link Button</a>
+                                                }
+                                            }
+                                        }
+                                        @{
+                                            for (int a = 0; a < Request.Count; ++a)
+                                                if (Request[a].Ticket.Equals(TicketName[i]))
+                                                {
+                                                    <a href="http://srvalloy.cityofsalem.net/wp/ServiceRequest.aspx?ID=@(Request[a].Id)&tab=1" class="btn btn-secondary" target="_blank" role="button">Link Button</a>
+                                                }
+                                        }
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+

@@ -1,0 +1,56 @@
+﻿using System;
+using System.Collections.Generic;
+
+#nullable disable
+
+namespace Task_Dashboard.Models
+{
+    public partial class LibraryListActive
+    {
+        public Guid Id { get; set; }
+        public Guid? AssetId { get; set; }
+        public DateTime? CheckOutDate { get; set; }
+        public Guid? CheckedOutToId { get; set; }
+        public string Description { get; set; }
+        public DateTime? DueDate { get; set; }
+        public string Name { get; set; }
+        public Guid? StatusId { get; set; }
+        public Guid? TypeId { get; set; }
+        public string Oid { get; set; }
+        public string Notes { get; set; }
+        public bool SharedWithEveryone { get; set; }
+        public Guid? OwnerId { get; set; }
+        public string Status { get; set; }
+        public string Type { get; set; }
+        public string CheckedOutTo { get; set; }
+        public string CheckedOutToOrganization { get; set; }
+        public string CheckedOutToBusinessPhone { get; set; }
+        public string Asset { get; set; }
+        public bool? Lease { get; set; }
+        public DateTime? LeaseReturnDate { get; set; }
+        public string InvoiceNumber { get; set; }
+        public string DepreciationMethod { get; set; }
+        public DateTime? LastDepreciation { get; set; }
+        public decimal? SalvageValue { get; set; }
+        public int? Lifespan { get; set; }
+        public decimal? CurrentValue { get; set; }
+        public string PurchaseOrder { get; set; }
+        public DateTime? PurchaseDate { get; set; }
+        public string AssetTag { get; set; }
+        public string Barcode { get; set; }
+        public decimal? Price { get; set; }
+        public decimal? UnitCost { get; set; }
+        public int? Qty { get; set; }
+        public bool Attachments { get; set; }
+        public int AttachmentsCount { get; set; }
+        public int AttachmentsTotalSize { get; set; }
+        public int ActivityCount { get; set; }
+        public int? FlagStatus { get; set; }
+        public string CreatedBy { get; set; }
+        public string Owner { get; set; }
+        public string ModifiedBy { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public int LinksCount { get; set; }
+    }
+}

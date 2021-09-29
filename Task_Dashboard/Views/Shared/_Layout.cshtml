@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+@*<script src="js/bootstrap.js"></script>*@
+@*<script src="lib/jquery/dist/jquery.js"></script>*@
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+<link rel="stylesheet" href="~/css/bootstrap.cerulean.min.css" />
+
+<html>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style=" padding-left: 25%;">
+        <div class="container-fluid" >
+            <div class="collapse navbar-collapse" id="navbarColor01" >
+                <img style="width: 220px; height: auto;" class="col-sm-3" src="~/download (1)Clear.png" alt="City of Salem"/>
+                @{
+                    var name = @User.Identity.Name;
+                    char delim = '\\';
+                    var realName = name.Split(delim);
+                }
+                <h3 style="color: whitesmoke; font-weight: normal; text-align: right;"> Hello, @realName[1]!</h3>
+                <div style="color:white;">
+                    <title>@ViewBag.Title - Ticket Dashboard</title>
+
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" style="background-color: #000000;">
+</header>
+
+<body>
+    <div class="container-fluid">
+        @RenderBody()
+    </div>
+</body>
+
+
+<hr />
+<div id="footer" style="background: white;">
+    <p class="copyright" style="text-align: center;">
+        Copyright ©
+        <SCRIPT type=text/javascript>
+                var theDate = new Date()
+                document.write(theDate.getFullYear())
+        </SCRIPT>
+
+        2011 City of Salem, Oregon All Rights Reserved<br>
+        All City pages are maintained by City of Salem employees.<br>
+        Email comments or suggestions to
+        <a href="mailto:webmaster@cityofsalem.net">
+            webmaster@cityofsalem.net
+        </a><br>
+        <a href="http://www.cityofsalem.net/Pages/WebsiteDisclaimer.aspx">
+            Website
+            Disclaimer
+        </a> |
+        <a href="http://www.cityofsalem.net/NonDiscrimination/Pages/default.aspx">
+            Non-Discrimination
+        </a> |
+        <a title="ADA Accommodations are available upon request." href="http://www.cityofsalem.net/Departments/HumanResources/ADA-Ethics/Pages/default.aspx">
+            ADA Accommodation
+        </a> | <a href="http://www.cityofsalem.net/CityCouncil/humanrights">Human Rights &amp; Relations</a>
+
+    </p>
+
+
+</div>
+
+</html>
