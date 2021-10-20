@@ -10,6 +10,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Task_Dashboard.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Web.Http;
+using System.Web.Http.Routing;
 
 namespace Task_Dashboard
 {
@@ -18,6 +20,7 @@ namespace Task_Dashboard
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
         }
 
         public IConfiguration Configuration { get; }
@@ -31,6 +34,7 @@ namespace Task_Dashboard
 
             services.AddControllersWithViews();
             services.AddMvc().AddRazorRuntimeCompilation();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +59,7 @@ namespace Task_Dashboard
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Ticket}/{action=Index}/{id?}");

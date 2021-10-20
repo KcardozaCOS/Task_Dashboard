@@ -880,3 +880,5 @@ C:\Users\kcardoza\Documents\GitHub\Task_Dashboard\Task_Dashboard\obj\Debug\net5.
 C:\Users\kcardoza\Documents\GitHub\Task_Dashboard\Task_Dashboard\obj\Debug\net5.0\Task_Dashboard.Views.pdb
 C:\Users\kcardoza\Documents\GitHub\Task_Dashboard\Task_Dashboard\obj\Debug\net5.0\Task_Dashboard.csproj.CopyComplete
 C:\Users\kcardoza\Documents\GitHub\Task_Dashboard\Task_Dashboard\obj\Debug\net5.0\Task_Dashboard.genruntimeconfig.cache
+C:\Users\kcardoza\Documents\GitHub\Task_Dashboard\Task_Dashboard\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\kcardoza\Documents\GitHub\Task_Dashboard\Task_Dashboard\bin\Debug\net5.0\System.Web.Http.WebHost.dll
